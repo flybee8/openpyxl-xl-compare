@@ -1,0 +1,67 @@
+import openpyxl
+
+
+from openpyxl import load_workbook
+from openpyxl import Workbook
+wb = load_workbook(filename='t1.xlsx')
+ws1 = wb['Sheet1'] # ws is now an IterableWorksheet
+ws2 = wb['Sheet2']
+wb2=Workbook()
+dest_file='Result1.xlsx'
+'''
+for row in ws1.rows:
+    for cell in row:
+        print(cell.value)
+for row in ws2.rows:
+    for cell in row:
+        print(cell.value)
+'''
+
+print("DataPoint:" +" |DocPoint Data:" +" |XML Data:" +" |Result")
+
+for cell in ws1.columns[0]:
+    if cell.value == 'Aus':
+        dpdata=cell.offset(column=1).value
+        #print(dpdata)
+for cell in ws2.columns[0]:
+    if cell.value == 'Aus':
+        xdata=cell.offset(column=1).value
+        #print(dpdata,xdata)
+        #print("DPData:%s | XmlData:%s" %(dpdata,xdata))
+if dpdata==xdata:
+        print("%s: | DPData:%s | XmlData:%s" %('Aus',dpdata,xdata) +" |Pass")
+        #print("Test Result: Pass")
+else:
+    print("%s: | DPData:%s | XmlData:%s" %('Aus',dpdata,xdata) +" |Fail")
+    #print("Test Result: Fail")
+
+for cell in ws1.columns[0]:
+    if cell.value == 'India':
+        dpdata=cell.offset(column=1).value
+        #print(dpdata)
+for cell in ws2.columns[0]:
+    if cell.value == 'India':
+        xdata=cell.offset(column=1).value
+        #print("DPData:%s | XmlData:%s" %(dpdata,xdata))
+if dpdata==xdata:
+        print("%s: | DPData:%s | XmlData:%s" %('India',dpdata,xdata) +" |Pass")
+        #print("Test Result: Pass")
+else:
+    print("%s: | DPData:%s | XmlData:%s" %('India',dpdata,xdata) +" |Fail")
+    #print("Test Result: Fail")
+
+for cell in ws1.columns[0]:
+    if cell.value == 'US':
+        dpdata=cell.offset(column=1).value
+        #print(dpdata)
+for cell in ws2.columns[0]:
+    if cell.value == 'America':
+        xdata=cell.offset(column=1).value
+        #print("%s: | DPData:%s | XmlData:%s" %('US',dpdata,xdata))
+if dpdata==xdata:
+        print("%s: | DPData:%s | XmlData:%s" %('US',dpdata,xdata) +" |Pass")
+        #print("Test Result: Pass")
+else:
+    print("%s: | DPData:%s | XmlData:%s" %('US',dpdata,xdata) +" |Fail")
+    #print("Test Result: Fail")
+wb2.save(filename=dest_file)
