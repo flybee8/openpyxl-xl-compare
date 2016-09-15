@@ -1,0 +1,4 @@
+   contents = fp.read()
+  File "\\ms\dist\python\PROJ\core\3.4.2-4-64\.exec\ia32.nt.4.0\lib\encodings\cp1252.py", line 23, in decode
+    return codecs.charmap_decode(input,self.errors,decoding_table)[0]
+UnicodeDecodeError: 'charmap' codec can't decode byte 0x8d in position 756: character maps to <undefined>
