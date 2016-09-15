@@ -1,0 +1,39 @@
+import smtplib
+from email.mime.text import MIMEText
+import mimetypes
+from email import encoders
+from email.message import Message
+from email.mime.base import MIMEBase
+from email.mime.multipart import MIMEMultipart
+import csv
+import os
+import io
+import codecs
+#import magic
+
+
+toList = ['subraraj']
+#ccList = ['tom','dick','harry']
+outer = MIMEMultipart()
+outer['Subject'] = 'Hello World!!'
+outer['To'] = ', '.join(toList)
+#outer['Cc'] = ', '.join(ccList)
+outer['From'] = 'subraraj'
+
+'''
+fileMsg = MIMEBase("application","octet-stream")
+#fileMsg.set_payload("column1,column2\n1,2\n3,4\n")
+#fileMsg.add_header('Content-Disposition', 'attachment', filename="t1.xls")
+outer.attach(fileMsg)
+'''
+
+fileMsg = MIMEBase("application","octet-stream")
+with open('123.xls','r') as fp:
+    contents = fp.read()
+    fileMsg = MIMEText(contents)
+outer.attach(fileMsg)
+
+s = smtplib.SMTP()
+s.connect("msa-hub")
+s.sendmail(outer['From'], toList, outer.as_string())
+s.close()
